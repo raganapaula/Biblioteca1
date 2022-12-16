@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Microsoft.EntityFrameworkCore;
+using Biblioteca.Models;
 
 namespace Biblioteca.Models
 {
@@ -34,7 +36,9 @@ namespace Biblioteca.Models
         {
             using(BibliotecaContext bc = new BibliotecaContext())
             {
+
              IQueryable<Emprestimo> consulta;
+
                 if(filtro!=null)
                 {
                     switch(filtro.TipoFiltro)
@@ -46,7 +50,7 @@ namespace Biblioteca.Models
                         case "Livro":
                         List<Livro> LivrosFiltrados = bc.Livros.Where(l => l.Titulo.Contains(filtro.Filtro)).ToList();
 
-                        List<int>LivrosIds = new List<int();
+                        List<int>LivrosIds = new List<int>();
                         for(int i = 0; i<LivrosFiltrados.Count; i++)
                         {LivrosIds.Add(LivrosFiltrados[i].Id);}
 
@@ -59,6 +63,7 @@ namespace Biblioteca.Models
                         break;
                     }
 
+                }
                     else
                     {
                         consulta = bc.Emprestimos; 
@@ -74,9 +79,8 @@ namespace Biblioteca.Models
                 }
 
             }
-        }
 
-        public Emprestimo ObterPorId(int id)
+        public Emprestimo ObterPorId (int id)
         {
             using(BibliotecaContext bc = new BibliotecaContext())
             {
