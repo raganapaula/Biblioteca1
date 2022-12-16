@@ -1,8 +1,9 @@
 using Biblioteca.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Biblioteca.Controllers
 {
@@ -79,7 +80,7 @@ namespace Biblioteca.Controllers
 
             CadEmprestimoViewModel cadModel = new CadEmprestimoViewModel();
             cadModel.Livros = livroService.ListarDisponiveis();
-            cadModel.Livros = Add(livroService.ObterPorId(e.LivroId));
+            cadModel.Livros.Add(livroService.ObterPorId(e.LivroId));
             cadModel.Emprestimo = e;
             
             return View(cadModel);
